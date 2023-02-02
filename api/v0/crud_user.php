@@ -38,7 +38,7 @@ function mkusr($lf, $srv, $conn, $uname)
         $stmt=$conn->prepare($sql);
         $stmt->bind_param("s", $uname);
         $stmt->execute();
-        return 'success';
+        return 'OK';
     }
     $errmsg="username $uname unavailable!";
     d($lf, $srv, $errmsg."\n");
@@ -52,7 +52,14 @@ function rmusr($lf, $srv, $conn, $uname)
     $stmt=$conn->prepare($sql);
     $stmt->bind_param("s", $uname);
     $stmt->execute();
-    return 'success';
+    if($conn->affected_rows > 0)
+    {
+        return "OK";
+    }
+    else
+    {
+        return "unable to delete $uname";
+    }
 }
 
 function lsusr($conn)

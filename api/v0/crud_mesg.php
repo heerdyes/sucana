@@ -31,7 +31,7 @@ function populateinboxes($lf,$srv,$conn,$uid,$rid,$mid)
         $xs->bind_param("ii", $cruid, $mid);
         $xs->execute();
     }
-    return "success";
+    return "OK";
 }
 
 function nqmsg($lf, $srv, $conn, $rn, $un, $msg)
@@ -89,19 +89,19 @@ function dqmsg($lf, $srv, $conn, $rn, $un)
     $rid=getroomid($conn, $rn);
     if($rid == 0)
     {
-        return "unknown chatroom";
+        return array("हे"=>"unknown chatroom", "द"=>[]);
     }
     $uid=getuid($conn, $un);
     if($uid == 0)
     {
-        return "unknown username";
+        return array("हे"=>"unknown username", "द"=>[]);
     }
     $ruid=getroomuserid($lf,$srv,$conn,$uid,$rid);
     if($ruid == 0)
     {
-        return "username non-existent in chatroom";
+        return array("हे"=>"username non-existent in chatroom", "द"=>[]);
     }
-    return exhaustinbox($lf,$srv,$conn,$ruid);
+    return array("हे"=>"OK", "द"=>exhaustinbox($lf,$srv,$conn,$ruid));
 }
 
 ?>

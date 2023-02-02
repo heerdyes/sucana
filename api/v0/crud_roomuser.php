@@ -43,7 +43,7 @@ function insertroomuser($lf, $srv, $conn, $crid, $uid)
     $stmt=$conn->prepare($sql);
     $stmt->bind_param('ii', $crid, $uid);
     $stmt->execute();
-    return "success";
+    return "OK";
 }
 
 function deleteroomuser($lf, $srv, $conn, $crid, $uid)
@@ -52,7 +52,14 @@ function deleteroomuser($lf, $srv, $conn, $crid, $uid)
     $stmt=$conn->prepare($sql);
     $stmt->bind_param('ii', $crid, $uid);
     $stmt->execute();
-    return "success";
+    if($conn->affected_rows == 1)
+    {
+        return "OK";
+    }
+    else
+    {
+        return "KO";
+    }
 }
 
 function addusr2room($lf, $srv, $conn, $uname, $rname)
@@ -61,7 +68,7 @@ function addusr2room($lf, $srv, $conn, $uname, $rname)
     if($uid == 0)
     {
         $rsp=mkusr($lf, $srv, $conn, $uname);
-        if($rsp!=='success')
+        if($rsp!=='OK')
         {
             return $rsp;
         }
@@ -71,7 +78,7 @@ function addusr2room($lf, $srv, $conn, $uname, $rname)
     if($crid == 0)
     {
         $rsp=mkroom($lf, $srv, $conn, $rname, $rname);
-        if($rsp!=='success')
+        if($rsp!=='OK')
         {
             return $rsp;
         }

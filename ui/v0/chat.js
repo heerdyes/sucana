@@ -19,33 +19,14 @@ function onkeydown(e) {
   }
 }
 
-function apicall(data,path,callback) {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify(data);
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
-  };
-
-  fetch(location.protocol+"//"+location.host+"/"+path, requestOptions)
-    .then(response => response.json())
-    .then(result => callback(result))
-    .catch(error => console.log('error', error));
-}
-
 function sendmesg(m) {
   let payload={
     "r": chatroom,
     "u": username,
     "m": m
   };
-  apicall(payload, "sendmesg.php", function(res) {
-    console.log(`response: ${res['msg']}`);
+  apipost(payload, "api/v0/sendmesg.php", function(res) {
+    console.log(`response: ${res['हे']}`);
   });
 }
 
@@ -55,8 +36,8 @@ function msgpoll() {
       'r': chatroom,
       'u': username
     };
-    apicall(payload, "recvmesg.php", function(res) {
-      let msgs=res['msg'];
+    apipost(payload, "api/v0/recvmesg.php", function(res) {
+      let msgs=res['द'];
       msgs.forEach((item) => {
         msglog.value+='['+item.u+'] '+item.m+'\n';
       });
@@ -70,7 +51,7 @@ function setuproomuser(un,cr) {
     "username": un,
     "roomname": cr
   };
-  apicall(payload, "roomusers.php", function(res) {
+  apipost(payload, "api/v0/roomusers.php", function(res) {
     console.log(res);
     allowpolling=true;
   });

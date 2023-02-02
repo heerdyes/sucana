@@ -1,7 +1,7 @@
 <?php
 function dbinit()
 {
-    $cfg=parse_ini_file('../cfg.ini');
+    $cfg=parse_ini_file('../../../cfg.ini');
 
     $servername = $cfg['server'];
     $database = $cfg['database'];

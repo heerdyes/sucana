@@ -1,15 +1,15 @@
 <?php
-include_once 'crud_chatroom.php';
+include_once 'crud_user.php';
 
 $cl=dbinit();
 $conn=$cl[0];
 $logfile=$cl[1];
 
 # request handlers
-function doget($lf, $srv, $conn)
+function doget($srv, $conn)
 {
-    $cx=lsrooms($lf, $srv, $conn);
-    $res=array("status" => "success", "data" => $cx);
+    $cx=lsusr($conn);
+    $res=array("हे" => "OK", "द" => $cx);
     printf("%s", json_encode($res));
 }
 
@@ -17,22 +17,22 @@ function dopost($lf, $srv, $conn)
 {
     $json=file_get_contents('php://input');
     $obj=json_decode($json);
-    $stat=mkroom($lf, $srv, $conn, $obj->name, $obj->desc);
-    $res=array("msg" => $stat);
+    $stat=mkusr($lf, $srv, $conn, $obj->username);
+    $res=array("हे"=>$stat, "द"=>[]);
     printf("%s", json_encode($res));
 }
 
 function doput($srv, $conn)
 {
-    $res=array("status" => "in progress");
+    $res=array("हे"=>"in progress", "द"=>[]);
     printf("%s", json_encode($res));
 }
 
 function dodel($lf, $srv, $conn)
 {
-    $rname=explode('/', $srv['PATH_INFO'])[1];
-    $stat=rmroom($lf, $srv, $conn, $rname);
-    $res=array("msg" => $stat);
+    $uname=explode('/', $srv['PATH_INFO'])[1];
+    $stat=rmusr($lf, $srv, $conn, $uname);
+    $res=array("हे"=>$stat, "द"=>[]);
     printf("%s", json_encode($res));
 }
 
@@ -41,7 +41,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 header('Content-type: application/json; charset=utf-8');
 if($method === 'GET')
 {
-    doget($logfile, $_SERVER, $conn);
+    doget($_SERVER, $conn);
 }
 elseif($method === 'POST')
 {

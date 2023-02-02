@@ -12,12 +12,12 @@ function doget($lf, $srv, $conn)
     {
         $rname=explode('/', $srv['PATH_INFO'])[1];
         $cx=lsroomusers($lf, $srv, $conn, $rname);
-        $res=array("status" => "success", "data" => $cx);
+        $res=array("हे" => "OK", "द" => $cx);
         printf("%s", json_encode($res));
     }
     else
     {
-        printf("%s", json_encode(array("msg"=>"roomname is required")));
+        printf("%s", json_encode(array("हे"=>"roomname is required", "द"=>[])));
     }
 }
 
@@ -26,13 +26,13 @@ function dopost($lf, $srv, $conn)
     $json=file_get_contents('php://input');
     $obj=json_decode($json);
     $stat=addusr2room($lf, $srv, $conn, $obj->username, $obj->roomname);
-    $res=array("msg" => $stat);
+    $res=array("हे" => $stat, "द"=>[]);
     printf("%s", json_encode($res));
 }
 
 function doput($srv, $conn)
 {
-    $res=array("status" => "in progress");
+    $res=array("हे" => "in progress", "द"=>[]);
     printf("%s", json_encode($res));
 }
 
@@ -41,14 +41,14 @@ function dodel($lf, $srv, $conn)
     $px=explode('/', $srv['PATH_INFO']);
     if(count($px) != 3)
     {
-        $res=array("msg" => "wrong number of parameters");
+        $res=array("हे" => "wrong number of parameters", "द"=>[]);
         printf("%s", json_encode($res));
         return;
     }
     $rname=$px[1];
     $uname=$px[2];
     $stat=rmusrfromroom($lf, $srv, $conn, $uname, $rname);
-    $res=array("msg" => $stat);
+    $res=array("हे"=>$stat, "द"=>[]);
     printf("%s", json_encode($res));
 }
 

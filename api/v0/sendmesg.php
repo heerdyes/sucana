@@ -8,26 +8,26 @@ $logfile=$cl[1];
 # request handlers
 function doget($lf, $srv, $conn)
 {
-    printf("%s", json_encode(array("msg"=>"nope.")));
+    printf("%s", json_encode(array("हे"=>"nope.", "द"=>[])));
 }
 
 function dopost($lf, $srv, $conn)
 {
     $json=file_get_contents('php://input');
     $o=json_decode($json);
-    $stat=dqmsg($lf, $srv, $conn, $o->r, $o->u);
-    $res=array("msg" => $stat);
+    $stat=nqmsg($lf, $srv, $conn, $o->r, $o->u, $o->m);
+    $res=array("हे"=>$stat, "द"=>[]);
     printf("%s", json_encode($res));
 }
 
 function doput($srv, $conn)
 {
-    printf("%s", json_encode(array("msg"=>"nope.")));
+    printf("%s", json_encode(array("हे"=>"nope.", "द"=>[])));
 }
 
 function dodel($lf, $srv, $conn)
 {
-    printf("%s", json_encode(array("msg"=>"nope.")));
+    printf("%s", json_encode(array("हे"=>"nope.", "द"=>[])));
 }
 
 # program flow

@@ -50,7 +50,7 @@ function mkroom($lf, $srv, $conn, $rname, $rdesc)
         $stmt=$conn->prepare($sql);
         $stmt->bind_param("ss", $rname, $rdesc);
         $stmt->execute();
-        return 'success';
+        return 'OK';
     }
     $errmsg="roomname $rname unavailable!";
     d($lf, $srv, $errmsg."\n");
@@ -64,6 +64,13 @@ function rmroom($lf, $srv, $conn, $rname)
     $stmt=$conn->prepare($sql);
     $stmt->bind_param("s", $rname);
     $stmt->execute();
-    return 'success';
+    if($conn->affected_rows > 0)
+    {
+        return "OK";
+    }
+    else
+    {
+        return "unable to delete $rname";
+    }
 }
 ?>

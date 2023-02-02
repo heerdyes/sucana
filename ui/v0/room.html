@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>सूचना</title>
+    <style>
+      .container {
+        width: 80%;
+        max-width: 54rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        margin: 0 auto;
+      }
+      .roomsel {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 10px;
+      }
+      .roomctr {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      button {
+        height: 1.6rem;
+      }
+      .runit {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="roomsel">
+        <label>username</label>
+        <input id="username">
+      </div>
+      <div>choose your chatroom</div>
+      <div class="roomctr">
+        <div class="runit">
+          <button>room1</button>
+          <p>room 1 description</p>
+        </div>
+        <div class="runit">
+          <button>room2</button>
+          <p>room 2 description</p>
+        </div>
+        <div class="runit">
+          <button>room3</button>
+          <p>room 3 description</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="apis.js"></script>
+    <script src="room.js"></script>
+  </body>
+</html>
